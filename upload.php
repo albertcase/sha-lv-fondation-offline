@@ -12,6 +12,7 @@ $DestinationDirectory	= 'uploads/'; //Upload Directory ends with / (slash)
 $Quality 				= 90;
 
 //ini_set('memory_limit', '-1'); // maximum memory!
+$imgAryList = array();
 
 foreach($_FILES as $file)
 {
@@ -26,7 +27,7 @@ if (is_array($ImageName))
 {
 	$c = count($ImageName);
 	
-	echo  '<ul>';
+	//echo  '<ul>';
 	
 	for ($i=0; $i < $c; $i++)
 	{
@@ -73,10 +74,10 @@ if (is_array($ImageName))
 			if($processImage && resizeImage($CurWidth,$CurHeight,$BigImageMaxSize,$DestRandImageName,$CreatedImage,$Quality,$ImageType[$i]))
 			{
 				//Create a square Thumbnail right after, this time we are using cropImage() function
-				if(!cropImage($CurWidth,$CurHeight,$ThumbSquareSize,$thumb_DestRandImageName,$CreatedImage,$Quality,$ImageType[$i]))
-					{
-						echo 'Error Creating thumbnail';
-					}
+				//if(!cropImage($CurWidth,$CurHeight,$ThumbSquareSize,$thumb_DestRandImageName,$CreatedImage,$Quality,$ImageType[$i]))
+					//{
+						//echo 'Error Creating thumbnail';
+					//}
 					/*
 					At this point we have succesfully resized and created thumbnail image
 					We can render image to user's browser or store information in the database
@@ -86,11 +87,12 @@ if (is_array($ImageName))
 					//Get New Image Size
 					list($ResizedWidth,$ResizedHeight)=getimagesize($DestRandImageName);
 					
-					echo '<table width="100%" border="0" cellpadding="4" cellspacing="0">';
-					echo '<tr>';
-					echo '<td align="center"><img src="uploads/'.$NewImageName.'" alt="Resized Image" height="'.$ResizedHeight.'" width="'.$ResizedWidth.'"></td>';
-					echo '</tr>';
-					echo '</table>';
+					$imgAryList[] = $NewImageName;
+					//echo '<table width="100%" border="0" cellpadding="4" cellspacing="0">';
+					//echo '<tr>';
+					//echo '<td align="center"><img src="uploads/'.$NewImageName.'" alt="Resized Image" height="'.$ResizedHeight.'" width="'.$ResizedWidth.'"></td>';
+					//echo '</tr>';
+					//echo '</table>';
 					/*
 					// Insert info into database table!
 					mysql_query("INSERT INTO myImageTable (ImageName, ThumbName, ImgPath)
@@ -104,8 +106,9 @@ if (is_array($ImageName))
 		}
 		
 	}
-	echo '</ul>';
+	//echo '</ul>';
 	}
+	echo json_encode($imgAryList);
 }
 	
 // This function will proportionally resize image 
