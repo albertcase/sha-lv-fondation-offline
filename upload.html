@@ -76,10 +76,11 @@ $(myform).ajaxForm({
 		},
 	complete: function(response) { // on complete
 		output.html(response.responseText); //update element with received data
-		myform.resetForm();  // reset form
+		/*myform.resetForm(); */ // reset form
 		submitbutton.removeAttr('disabled'); //enable submit button
 		progressbox.hide(); // hide progressbar
-		alert(11);
+		alert($("#code").val());
+		myform.resetForm();
 		/*$("#uploaderform").slideUp();*/ // hide form after upload
 	}
 });
@@ -126,10 +127,10 @@ $(myform).ajaxForm({
 	    <div id="progressbox"><div id="progressbar"></div ><div id="statustxt">0%</div ></div>
 	</form>
 	</div>
-	<div id="uploadResults">
+	<!-- <div id="uploadResults">
 		<div align="center" style="margin:20px;"><a href="#" id="ShowForm">Toggle Form</a></div>
 	    <div id="output"></div>
-	</div>	
+	</div>	 -->
 
 <!--<script type="text/javascript">
 function addfile(){
