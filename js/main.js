@@ -12,7 +12,7 @@
                 return false;
             }
             if(account=="admin"&&password=="lv2015"){
-                location.href="upload.html";
+                location.href="file.php";
             }
             else{
                 alert("账号或密码有误，请重新填写！");
@@ -23,7 +23,7 @@
 
         });
         $(".upload_btn").on("click",function(){
-            var code=$(".code").val();
+            var code=$("#code").val();
             if(code==""){
                 alert("请输入您的编号！");
                 return false;
