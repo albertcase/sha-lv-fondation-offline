@@ -52,44 +52,57 @@ $("body").on("click",".removeclass", function(e){
 $("#ShowForm").click(function () {
   $("#uploaderform").slideToggle(); //Slide Toggle upload form on click
 });
-	
-$(myform).ajaxForm({
-	beforeSend: function() { //brfore sending form
-		submitbutton.attr('disabled', ''); // disable upload button
-		statustxt.empty();
-		progressbox.show(); //show progressbar
-		progressbar.width(completed); //initial value 0% of progressbar
-		statustxt.html(completed); //set status text
-		statustxt.css('color','#000'); //initial color of status text
-		var code=$("#code").val();
-		if(code==""){
-			alert("Please enter the code!");
-			return false;
-		}
-		
-	},
-	uploadProgress: function(event, position, total, percentComplete) { //on progress
-		progressbar.width(percentComplete + '%') //update progressbar percent complete
-		statustxt.html(percentComplete + '%'); //update status text
-		if(percentComplete>50)
-			{
-				statustxt.css('color','#fff'); //change status text to white after 50%
-			}else{
-				statustxt.css('color','#000');
+
+$("#SubmitButton").click(function () {
+	if($("#code").val()==''){
+		alert("请填写code")
+		return false
+	}else{
+		$(myform).ajaxForm({
+			beforeSend: function() { //brfore sending form
+				submitbutton.attr('disabled', ''); // disable upload button
+				statustxt.empty();
+				progressbox.show(); //show progressbar
+				progressbar.width(completed); //initial value 0% of progressbar
+				statustxt.html(completed); //set status text
+				statustxt.css('color','#000'); //initial color of status text	
+			},
+			uploadProgress: function(event, position, total, percentComplete) { //on progress
+				progressbar.width(percentComplete + '%') //update progressbar percent complete
+				statustxt.html(percentComplete + '%'); //update status text
+				if(percentComplete>50)
+					{
+						statustxt.css('color','#fff'); //change status text to white after 50%
+					}else{
+						statustxt.css('color','#000');
+					}
+					
+				},
+			complete: function(response) { // on complete
+				$("#aaa").val(response.responseText); //update element with received data
+				//myform.resetForm();  // reset form
+				 //enable submit button
+				 //submitbutton.removeAttr('disabled');
+				//progressbox.hide(); // hide progressbar
+				/*$("#uploaderform").slideUp();*/ // hide form after upload
+				submitForm();
 			}
-			
-		},
-	complete: function(response) { // on complete
-		$("#aaa").value(response.responseText); //update element with received data
-		myform.resetForm();  // reset form
-		submitbutton.removeAttr('disabled'); //enable submit button
-		progressbox.hide(); // hide progressbar
-		alert($("#aaa").val());
-		/*$("#uploaderform").slideUp();*/ // hide form after upload
+		});
 	}
-});
+})
+
 
 }); 
+
+function submitForm(){
+	var code=$("#code").val();
+	if(code==""){
+		alert("Please enter the code!");
+		return false;
+	}
+	alert('这里调接口')
+	submitbutton.removeAttr('disabled');
+}
 </script> 
 
 </head>

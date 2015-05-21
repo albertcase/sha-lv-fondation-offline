@@ -1,6 +1,3 @@
-<noscript>
-<div align="center"><a href="index.php">Go Back To Upload Form</a></div><!-- If javascript is disabled -->
-</noscript>
 <?php
 //If you face any errors, increase values of "post_max_size", "upload_max_filesize" and "memory_limit" as required in php.ini
 
