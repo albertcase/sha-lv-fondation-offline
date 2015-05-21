@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION['login_user'])){
+	Header('Location:./index.html');
+	exit;
+}
+?>
 <!DOCTYPE HTML>
 <html>
 <head>
