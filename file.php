@@ -107,8 +107,17 @@ function submitForm(){
 		alert("Please enter the code!");
 		return false;
 	}
-	alert('这里调接口')
-	submitbutton.removeAttr('disabled');
+	$.ajax({
+		url:"./Request.php?model=upload",
+		type:"post",
+		data:{"code":code,"files":$("#aaa").val()},
+		dataType:"json",
+		success:function(data){
+			alert(data.code)
+			$("#SubmitButton").removeAttr('disabled');
+		}
+	})
+	
 }
 </script> 
 
