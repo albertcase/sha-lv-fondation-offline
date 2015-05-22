@@ -113,8 +113,13 @@ function submitForm(){
 		data:{"code":code,"files":$("#aaa").val()},
 		dataType:"json",
 		success:function(data){
-			alert(data.code)
 			$("#SubmitButton").removeAttr('disabled');
+			if(data.code==1){
+				alert('上传成功')
+				window.location.href="./file.php"
+			}else{
+				alert(data.msg)
+			}
 		}
 	})
 	

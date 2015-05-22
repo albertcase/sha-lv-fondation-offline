@@ -14,6 +14,11 @@ if(isset($_POST['model'])){
 				print json_encode(array("code"=>0,"msg"=>'请填写必填项'));
 				exit;
 			}
+			$sql="select id from same_photo where code=".$db->quote($code);
+			if($db->getOne($sql)){
+				print json_encode(array("code"=>0,"msg"=>'该code已经被使用了'));
+				exit;
+			}
 			$sql="insert into same_photo set code=".$db->quote($code).",photo=".$db->quote($files);
 			$db->execute($sql);
 			$id=$db->lastInsertId;

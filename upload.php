@@ -62,7 +62,6 @@ if (is_array($ImageName))
 	
 			//Construct a new image name (with random number added) for our new image.
 			$NewImageName = $RandomNumber.'.'.$ImageExt;
-
 			//Set the Destination Image path with Random Name
 			$thumb_DestRandImageName 	= $DestinationDirectory.$ThumbPrefix.$NewImageName; //Thumb name
 			$DestRandImageName 			= $DestinationDirectory.$NewImageName; //Name for Big Image
@@ -84,7 +83,18 @@ if (is_array($ImageName))
 					//Get New Image Size
 					list($ResizedWidth,$ResizedHeight)=getimagesize($DestRandImageName);
 					
-					$imgAryList[] = $NewImageName;
+					//$imgAryList[] = $NewImageName;
+					$im   =   ImageCreateFromJpeg( "./bg.jpg"); 
+					$im_ex   =   ImageCreateFromPng("./logo.png"); 
+					$im_ex2   =   ImageCreateFromJpeg( './uploads/'.$NewImageName); 
+					list($width,$height)=getimagesize('./uploads/'.$NewImageName);
+					imagecopyresized($im,$im_ex,13,10,0,0,641,29,641,29); 
+					imagecopyresized($im,$im_ex2,13,50,0,0,641,959,$width,$height); 
+					//header("content-type: image/jpeg");
+					$hechengImg="./uploads/".time().rand(100,999).'.jpg';
+					//$hechengImg="./uploads/test.jpg";
+					ImageJpeg($im,$hechengImg); 
+					$imgAryList[] = $hechengImg;
 					//echo '<table width="100%" border="0" cellpadding="4" cellspacing="0">';
 					//echo '<tr>';
 					//echo '<td align="center"><img src="uploads/'.$NewImageName.'" alt="Resized Image" height="'.$ResizedHeight.'" width="'.$ResizedWidth.'"></td>';
